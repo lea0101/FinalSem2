@@ -12,8 +12,9 @@ func _process(delta):
 		pbar.value+=1
 		if pbar.value==pbar.max_value:
 			showing=false
-			get_parent().fill_can()
+			get_parent().fill_can(100)
 			hide()
+			pbar.value=0
 			
 
 

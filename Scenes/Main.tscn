@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/FarmPlot.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/WaterStation.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Ground.obj" type="ArrayMesh" id=4]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -34,3 +35,25 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.51369, 2.6263 )
 
 [node name="TMP_WaterStation" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.17547, 4.95734 )
+
+[node name="Ground2" type="MeshInstance" parent="."]
+transform = Transform( 1.82171, 0, 0, 0, 0.432817, 0, 0, 0, 1.72762, 0, 0, 0 )
+mesh = ExtResource( 4 )
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+material/6 = null
+material/7 = null
+material/8 = null
+material/9 = null
+material/10 = null
+material/11 = null
+material/12 = null
+material/13 = null
+material/14 = null
+material/15 = null
+material/16 = null
+material/17 = null

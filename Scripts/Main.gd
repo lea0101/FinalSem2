@@ -1,7 +1,7 @@
 extends Spatial
 
 onready var player_sp:=$Spawnpoint
-var player_prefab=preload("res://Scenes/PlayerTemp.tscn")
+var player_prefab=preload("res://Scenes/Player.tscn")
 
 func _ready():
 	var player=player_prefab.instance()

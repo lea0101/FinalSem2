@@ -1,20 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
-[sub_resource type="CylinderMesh" id=1]
-top_radius = 0.08
-bottom_radius = 0.08
-height = 0.7
+[ext_resource path="res://Assets/Hoe.obj" type="ArrayMesh" id=1]
 
-[sub_resource type="CylinderMesh" id=2]
-top_radius = 0.05
-bottom_radius = 0.02
-height = 0.25
-
-[node name="MeshInstance" type="MeshInstance"]
-mesh = SubResource( 1 )
+[node name="Hoe" type="MeshInstance"]
+transform = Transform( 1.78873e-09, 0.15, 0, -0.15, 1.78873e-09, 0, 0, 0, 0.15, 0, 0, 0 )
+mesh = ExtResource( 1 )
 material/0 = null
-
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( -1.68488e-08, 4.03337e-08, -1, 0.922727, 0.385455, 0, 0.385455, -0.922727, -4.37114e-08, -0.00366756, 0.283014, 0.112382 )
-mesh = SubResource( 2 )
-material/0 = null
+material/1 = null

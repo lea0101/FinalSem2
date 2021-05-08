@@ -10,9 +10,10 @@ onready var slots:=$Slots
 onready var ind:=$Rect_Indicator
 onready var inv_item:=$Slots/TMP_Item
 onready var pg_can:=$Prog_Can
+onready var can_tip:=$RtLbl_CanTip
 
 func _ready():
-	can_capacity=0
+	fill_can(0)
 	equipped="Hoe"
 
 func _process(delta):
@@ -37,9 +38,13 @@ func equip(index):
 			continue
 		i.visible=true
 		
-func fill_can():
-	can_capacity=100
-	pg_can.value=can_capacity
+func fill_can(x):
+	if x==0:
+		can_tip.show()
+	else:
+		can_tip.hide()
+	can_capacity=x
+	pg_can.value=x
 	pg_can.get_child(0).text=str(can_capacity) + "%"
 	
 	

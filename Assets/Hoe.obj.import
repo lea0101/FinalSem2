@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Hoe.obj-9a33df914b77f91065b697c92de62a9f.mesh"
+
+[deps]
+
+files=[ "res://.import/Hoe.obj-9a33df914b77f91065b697c92de62a9f.mesh" ]
+
+source_file="res://Assets/Hoe.obj"
+dest_files=[ "res://.import/Hoe.obj-9a33df914b77f91065b697c92de62a9f.mesh", "res://.import/Hoe.obj-9a33df914b77f91065b697c92de62a9f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
