@@ -5,16 +5,26 @@ var inventory:=["Hoe","Can","Seed","",""]
 export(Array) var items
 export(String) var equipped
 export(int) var can_capacity
+var money:=0
+export(Array) var seedsprices=[1,5,10]
 
 onready var slots:=$Slots
 onready var ind:=$Rect_Indicator
 onready var inv_item:=$Slots/TMP_Item
 onready var pg_can:=$Prog_Can
 onready var can_tip:=$RtLbl_CanTip
+onready var closebtn:=$Btn_Close
+onready var moneylbl:=$Lbl_Money
+
+onready var ctrl_water:=$Fill_Water
+onready var ctrl_shop:=$Shop
+
+
 
 func _ready():
 	fill_can(0)
 	equipped="Hoe"
+	add_money(100)
 
 func _process(delta):
 	if Input.is_action_pressed("num_1"):
@@ -46,7 +56,15 @@ func fill_can(x):
 	can_capacity=x
 	pg_can.value=x
 	pg_can.get_child(0).text=str(can_capacity) + "%"
-	
-	
 
+
+func _on_Btn_Close_button_down():
+	ctrl_shop.hide()
+	ctrl_water.toggle_show(0)
+	closebtn.hide()
+	
+func add_money(change:int):
+	money+=change
+	moneylbl.text="$" + str(money)
+	
 

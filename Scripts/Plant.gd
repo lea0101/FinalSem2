@@ -35,6 +35,8 @@ func _on_WaterTimer_timeout():
 		water-=.1
 	change_soil_color()
 	thirst_timer.start()
+	if water!=.5:
+		grow_timer.stop()
 
 func change_soil_color(): 
 	 #25 66 42 255

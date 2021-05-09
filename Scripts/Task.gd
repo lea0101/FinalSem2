@@ -17,4 +17,11 @@ func _process(delta):
 			pbar.value=0
 			
 
+func toggle_show(v:int):
+	if v==0:
+		hide()
+		showing=false
+		return
+	show()
+	showing=true
 

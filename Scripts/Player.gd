@@ -1,7 +1,8 @@
 extends KinematicBody
 
-#public vars
+
 export(bool) var on_farm=false
+export(Array) var seeds_cnt=[0,0,0]
 
 #bools
 var jumping:=false
@@ -60,7 +61,7 @@ func get_input():
 	
 	rotate_y(rot_y*rotation_speed)
 	
-	if Input.is_action_just_pressed("click"):
+	if Input.is_action_just_pressed("right_click"):
 		match ui.equipped:
 			"Hoe":
 				hoe_anim.play("Swing")
@@ -76,7 +77,9 @@ func get_input():
 					ui.fill_can(ui.can_capacity-20)
 					current_plant.get_watered()
 					
-					
+			"Seed1":
+				if on_farm and current_plant!=null and seeds_cnt[0]!=0:
+					pass #Plant seed! 
 			_:
 				print("Not ready")
 			
@@ -89,7 +92,35 @@ func apply_force(dir:Vector3):
 #	if event is InputEventMouseButton:
 #		rotate_y(-lerp(0, rotation_speed, event.relative.x))
 
-func start_fill():
-	ui.get_child(1).show()
-	ui.get_child(1).showing=true
-	
+
+func open_menu(menu_name:String):
+	match menu_name:
+		"Water":
+			ui.ctrl_water.toggle_show(1)
+			ui.ctrl_shop.hide()
+			
+		"Shop":
+			ui.ctrl_shop.show()
+			ui.ctrl_water.toggle_show(0)
+			
+		_:
+			print("Error")	
+	ui.closebtn.show()
+
+
+
+func _on_Btn_Seed1_pressed():
+	buy_seed(0)
+
+func _on_Btn_Seed2_pressed():
+	buy_seed(1)
+
+func _on_Btn_Seed3_pressed():
+	buy_seed(2)
+
+func buy_seed(index:int):
+	if ui.money-ui.seedsprices[index]<0:
+		return
+	seeds_cnt[index]+=1
+	ui.add_money(-ui.seedsprices[index])
+	ui.slots.get_child(2+index).get_child(0).text=str(seeds_cnt[index]) + "x"

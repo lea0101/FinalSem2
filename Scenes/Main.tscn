@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/FarmPlot.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/WaterStation.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Ground.obj" type="ArrayMesh" id=4]
+[ext_resource path="res://Scenes/Shop.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -57,3 +58,6 @@ material/14 = null
 material/15 = null
 material/16 = null
 material/17 = null
+
+[node name="TMP_Shop" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.57425, 1.25621, 0 )
