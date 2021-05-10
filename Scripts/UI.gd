@@ -1,7 +1,9 @@
 extends Control
 
 
-var inventory:=["Hoe","Can","Seed","",""]
+var inventory:=["Hoe","Can","Seed1","Seed2","Seed3"]
+var plants_val:=[5,10,30]
+
 export(Array) var items
 export(String) var equipped
 export(int) var can_capacity
@@ -18,6 +20,7 @@ onready var moneylbl:=$Lbl_Money
 
 onready var ctrl_water:=$Fill_Water
 onready var ctrl_shop:=$Shop
+onready var ctrl_inv:=$Panel_Inv
 
 
 
@@ -25,6 +28,9 @@ func _ready():
 	fill_can(0)
 	equipped="Hoe"
 	add_money(100)
+	ctrl_shop.hide()
+	ctrl_water.hide()
+
 
 func _process(delta):
 	if Input.is_action_pressed("num_1"):
@@ -66,5 +72,23 @@ func _on_Btn_Close_button_down():
 func add_money(change:int):
 	money+=change
 	moneylbl.text="$" + str(money)
-	
 
+
+
+func _on_Btn_Plant1_pressed():
+	if(get_parent().plants_cnt[0]>0):
+		add_money(5)
+		get_parent().plants_cnt[0]-=1
+
+
+func _on_Btn_Plant2_pressed():
+	add_money(10)
+
+func _on_Btn_Plant3_pressed():
+	add_money(30)
+	
+func sell_crop(index:int):
+	if(get_parent().plants_cnt[index]>0):
+		add_money(plants_val[index])
+		get_parent().plants_cnt[index]-=1
+		ctrl_inv.update_cnt()

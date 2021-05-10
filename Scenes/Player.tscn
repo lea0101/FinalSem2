@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://Assets/Player/Material_001.material" type="Material" id=1]
 [ext_resource path="res://Assets/can2.png" type="Texture" id=2]
@@ -25,16 +25,46 @@
 [ext_resource path="res://Assets/Seeds/Seed3_Btn3.png" type="Texture" id=23]
 [ext_resource path="res://Assets/Seeds/Seed3_Inv.png" type="Texture" id=24]
 [ext_resource path="res://Assets/Seeds/Seed2_Inv.png" type="Texture" id=25]
+[ext_resource path="res://Assets/Inventory/InvButton1.png" type="Texture" id=26]
+[ext_resource path="res://Assets/Inventory/InvButton2.png" type="Texture" id=27]
+[ext_resource path="res://Scripts/Inventory.gd" type="Script" id=28]
+[ext_resource path="res://Assets/Inventory/Plant1_Icon.png" type="Texture" id=29]
+[ext_resource path="res://Assets/Inventory/Plant2_Icon.png" type="Texture" id=30]
+[ext_resource path="res://Assets/Inventory/Plant3_Icon.png" type="Texture" id=31]
+[ext_resource path="res://Assets/Inventory/Plant3_Btn2.png" type="Texture" id=32]
+[ext_resource path="res://Assets/Inventory/Plant1_Btn3.png" type="Texture" id=33]
+[ext_resource path="res://Assets/Inventory/Plant3_Btn1.png" type="Texture" id=34]
+[ext_resource path="res://Assets/Inventory/Plant2_Btn3.png" type="Texture" id=35]
+[ext_resource path="res://Assets/Inventory/Plant1_Btn2.png" type="Texture" id=36]
+[ext_resource path="res://Assets/Inventory/Plant2_Btn2.png" type="Texture" id=37]
+[ext_resource path="res://Assets/Inventory/Plant2_Btn1.png" type="Texture" id=38]
+[ext_resource path="res://Assets/Inventory/Plant3_Btn3.png" type="Texture" id=39]
+[ext_resource path="res://Assets/Inventory/Plant1_Btn1.png" type="Texture" id=40]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.6767, 1, 0.733048 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 27
 font_data = ExtResource( 17 )
 
-[sub_resource type="Animation" id=2]
-resource_name = "Swing"
+[sub_resource type="Animation" id=3]
+resource_name = "open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -254.373, 134.695 ), Vector2( -1, 134.695 ) ]
+}
+
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
 tracks/0/interp = 1
@@ -53,6 +83,10 @@ tracks/0/keys = {
 ]]
 script = ExtResource( 3 )
 
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.484396, 0 )
+script = ExtResource( 10 )
+
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )
 visible = false
@@ -61,10 +95,6 @@ material/0 = ExtResource( 1 )
 material/1 = ExtResource( 1 )
 material/2 = ExtResource( 1 )
 material/3 = ExtResource( 1 )
-
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.94387, 0.330317, 0, -0.330317, 0.94387, 0, 0.958413, -0.0162635 )
-script = ExtResource( 10 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
@@ -255,6 +285,72 @@ margin_right = 354.675
 margin_bottom = 45.0608
 text = "Sell Crops
 "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Btn_Plant1" type="TextureButton" parent="UI/Shop/TabContainer/Sell"]
+margin_left = 200.891
+margin_top = 130.884
+margin_right = 250.891
+margin_bottom = 180.884
+texture_normal = ExtResource( 40 )
+texture_pressed = ExtResource( 33 )
+texture_hover = ExtResource( 36 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lbl_Money1" type="Label" parent="UI/Shop/TabContainer/Sell/Btn_Plant1"]
+margin_left = 5.34534
+margin_top = 66.8174
+margin_right = 45.3453
+margin_bottom = 82.8174
+text = "$5"
+align = 1
+
+[node name="Btn_Plant2" type="TextureButton" parent="UI/Shop/TabContainer/Sell"]
+margin_left = 300.891
+margin_top = 130.884
+margin_right = 350.891
+margin_bottom = 180.884
+texture_normal = ExtResource( 38 )
+texture_pressed = ExtResource( 35 )
+texture_hover = ExtResource( 37 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lbl_Money2" type="Label" parent="UI/Shop/TabContainer/Sell/Btn_Plant2"]
+margin_left = 6.01691
+margin_top = 66.8174
+margin_right = 46.0169
+margin_bottom = 82.8174
+text = "$15"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Btn_Plant3" type="TextureButton" parent="UI/Shop/TabContainer/Sell"]
+margin_left = 400.891
+margin_top = 130.884
+margin_right = 450.891
+margin_bottom = 180.884
+texture_normal = ExtResource( 34 )
+texture_pressed = ExtResource( 39 )
+texture_hover = ExtResource( 32 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lbl_Money3" type="Label" parent="UI/Shop/TabContainer/Sell/Btn_Plant3"]
+margin_left = 6.68842
+margin_top = 66.8174
+margin_right = 46.6884
+margin_bottom = 82.8174
+text = "$30"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -467,19 +563,119 @@ margin_left = 13.9205
 margin_top = 17.4875
 margin_right = 53.9205
 margin_bottom = 45.4875
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0.223529, 0.862745, 0.231373, 1 )
 text = "$0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Panel_Inv" type="Panel" parent="UI"]
+margin_left = -254.373
+margin_top = 134.695
+margin_right = -4.37294
+margin_bottom = 434.695
+script = ExtResource( 28 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Btn_OpenMenu" type="TextureButton" parent="UI/Panel_Inv"]
+margin_left = 246.073
+margin_top = 131.522
+margin_right = 286.073
+margin_bottom = 171.522
+toggle_mode = true
+texture_normal = ExtResource( 26 )
+texture_pressed = ExtResource( 27 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/Panel_Inv"]
+anims/open = SubResource( 3 )
+
+[node name="Label" type="Label" parent="UI/Panel_Inv"]
+margin_left = 76.1092
+margin_top = 15.4597
+margin_right = 178.109
+margin_bottom = 31.4597
+text = "Plant Inventory"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Plants_Labels" type="Control" parent="UI/Panel_Inv"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lbl_Plant1" type="Label" parent="UI/Panel_Inv/Plants_Labels"]
+margin_left = 34.487
+margin_top = 68.974
+margin_right = 74.487
+margin_bottom = 84.974
+text = "0x"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Plant1_Icon" type="Sprite" parent="UI/Panel_Inv/Plants_Labels/Lbl_Plant1"]
+position = Vector2( 48.7576, 8.67276 )
+texture = ExtResource( 29 )
+
+[node name="Lbl_Plant2" type="Label" parent="UI/Panel_Inv/Plants_Labels"]
+margin_left = 34.487
+margin_top = 139.613
+margin_right = 74.487
+margin_bottom = 155.613
+text = "0x"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Plant2_Icon" type="Sprite" parent="UI/Panel_Inv/Plants_Labels/Lbl_Plant2"]
+position = Vector2( 50.1749, 1.36026 )
+texture = ExtResource( 30 )
+
+[node name="Lbl_Plant3" type="Label" parent="UI/Panel_Inv/Plants_Labels"]
+margin_left = 34.487
+margin_top = 210.999
+margin_right = 74.487
+margin_bottom = 226.999
+text = "0x"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Plant3_Icon" type="Sprite" parent="UI/Panel_Inv/Plants_Labels/Lbl_Plant3"]
+position = Vector2( 47.0001, 10.8847 )
+texture = ExtResource( 31 )
+
 [node name="Hoe" parent="." instance=ExtResource( 9 )]
-transform = Transform( 1.59751e-08, -0.15, -2.05982e-08, -0.136416, -5.96293e-09, -0.0623755, 0.0623755, 2.53759e-08, -0.136416, 0.363031, 0.287311, -0.219544 )
+transform = Transform( 1.10367e-09, -0.15, 1.19259e-08, -0.136416, -5.96293e-09, -0.0623755, 0.0623755, -1.03869e-08, -0.136416, 0.363031, 0.287311, -0.219544 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Hoe"]
-anims/Swing = SubResource( 2 )
+anims/Swing = SubResource( 4 )
+
+[node name="Scroll_ViewX" type="VScrollBar" parent="."]
+margin_left = 757.0
+margin_top = 437.0
+margin_right = 979.0
+margin_bottom = 577.0
+theme = ExtResource( 7 )
+step = 4.0
+page = 5.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="UI/Shop/TabContainer/Buy/Btn_Seed1" to="." method="_on_Btn_Seed1_pressed"]
 [connection signal="pressed" from="UI/Shop/TabContainer/Buy/Btn_Seed2" to="." method="_on_Btn_Seed2_pressed"]
 [connection signal="pressed" from="UI/Shop/TabContainer/Buy/Btn_Seed3" to="." method="_on_Btn_Seed3_pressed"]
+[connection signal="pressed" from="UI/Shop/TabContainer/Sell/Btn_Plant1" to="UI" method="_on_Btn_Plant1_pressed"]
+[connection signal="pressed" from="UI/Shop/TabContainer/Sell/Btn_Plant2" to="UI" method="_on_Btn_Plant2_pressed"]
+[connection signal="pressed" from="UI/Shop/TabContainer/Sell/Btn_Plant3" to="UI" method="_on_Btn_Plant3_pressed"]
 [connection signal="button_down" from="UI/Btn_Close" to="UI" method="_on_Btn_Close_button_down"]
+[connection signal="toggled" from="UI/Panel_Inv/Btn_OpenMenu" to="UI/Panel_Inv" method="_on_Btn_OpenMenu_toggled"]
