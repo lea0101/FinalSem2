@@ -1,11 +1,8 @@
 extends Area
 
-#Every plant needs fertilizer and water
-# and time for its growth
 
-export(int) var water=0 #0-100. Use soil mesh overlay opacity to show thirst
-export(int) var nutrients=0 #0-100. Same as above but for plant stem.
-export(int) var seeds=0 #1-3 for each type of plant. 0 when no seed.
+export(int) var water=0 
+export(int) var seeds=0 
 
 export(int) var grow_stage=0
 
@@ -16,7 +13,6 @@ onready var thirst_timer:=$WaterTimer
 #Mesh
 onready var soil:=$Soil
 var soil_mat=preload("res://Assets/Soil.tres")
-#Default color is rgba 108 67 37 255
 
 var seed1_prefab=preload("res://Scenes/Seed.glb")
 var stage1_prefab=preload("res://Assets/Plants/Plant1.glb")
@@ -56,16 +52,12 @@ func _on_WaterTimer_timeout():
 	change_soil_color()
 	thirst_timer.start()
 	if water<.3:
-		print("Stopping growth!")
 		grow_timer.wait_time=grow_timer.time_left
 		grow_timer.stop()
 
 
 
 func change_soil_color(): 
-	 #25 66 42 255
-	#Color(0.42,0.26,0.14, 1)
-	print("Changing color!")
 	soil_mat.albedo_color=Color.from_hsv(.069, .66, 1-water, 1)
 	for i in soil.get_children():
 		i.material_override=soil_mat
@@ -76,7 +68,7 @@ func get_watered():
 	change_soil_color()
 	if grow_timer.is_stopped():
 		grow_timer.start()
-		print("Starting growth")
+		
 
 
 func _on_Area_body_entered(body):

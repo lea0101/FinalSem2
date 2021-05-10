@@ -21,7 +21,7 @@ onready var ui:=$UI
 onready var hoe_anim:=$Hoe/AnimationPlayer
 onready var can_anim:=$Can/AnimationPlayer
 onready var can_particles:=$Can/Particles
-
+onready var water_fx:=$WateringSound
 #Prefabs
 var tilled_prefab=preload("res://Scenes/Plant.tscn")
 
@@ -38,7 +38,6 @@ export(Resource) var current_plant
 
 
 func _ready():
-	print("Rotation:", rotation_degrees.x)
 	ui.items.append(hoe)
 	ui.items.append(can)
 	current_plant=null
@@ -95,6 +94,7 @@ func get_input():
 					ui.fill_can(ui.can_capacity-20)
 					current_plant.get_watered()
 					can_anim.play("pour")
+					water_fx.play()
 					can_particles.emitting=true
 
 			"Seed1":
@@ -109,8 +109,7 @@ func get_input():
 				if on_farm and current_plant!=null and seeds_cnt[2]!=0:
 					current_plant.start_growth(2)
 					use_seed(2)	
-			_:
-				print("Not ready")
+			
 
 
 func open_menu(menu_name:String):
@@ -123,8 +122,6 @@ func open_menu(menu_name:String):
 			ui.ctrl_shop.show()
 			ui.ctrl_water.toggle_show(0)
 
-		_:
-			print("Error")	
 	ui.closebtn.show()
 
 

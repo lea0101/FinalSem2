@@ -19,6 +19,10 @@ config/name="FinalSem2"
 run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/resizable=false
+
 [input]
 
 ui_accept={

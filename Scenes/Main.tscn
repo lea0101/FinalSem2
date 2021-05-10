@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/FarmPlot.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Assets/Ground.obj" type="ArrayMesh" id=4]
 [ext_resource path="res://Scenes/Shop.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/Fence.glb" type="PackedScene" id=6]
+[ext_resource path="res://Assets/Sky.ogg" type="AudioStream" id=7]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -167,3 +168,7 @@ transform = Transform( -1.62921e-07, 0, 0.5, 0, 0.5, 0, -1, 0, -8.14603e-08, -2.
 transform = Transform( 1, 0, 0, 0, 0.537535, 0.843241, 0, -0.843241, 0.537535, 0, 15.085, 12.6004 )
 light_color = Color( 0.945098, 0.823529, 0.564706, 1 )
 shadow_enabled = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+autoplay = true
