@@ -8,4 +8,3 @@ func _ready():
 	player.global_transform=player_sp.global_transform
 	add_child(player)
 
-#the regular ground should be cobbles or something

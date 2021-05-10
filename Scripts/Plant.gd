@@ -18,15 +18,19 @@ onready var soil:=$Soil
 var soil_mat=preload("res://Assets/Soil.tres")
 #Default color is rgba 108 67 37 255
 
-#Plant 1
 var seed1_prefab=preload("res://Scenes/Seed.glb")
-var plant1_prefab=preload("res://Assets/Plants/Plant1.glb")
-var plant1_stage2_prefab=preload("res://Assets/Plants/Plant1_Stage2.glb")
+var stage1_prefab=preload("res://Assets/Plants/Plant1.glb")
+var stage2_prefab=preload("res://Assets/Plants/Plant1_Stage2.glb")
+
+
+#Plant 1
 var plant1_final_prefab=preload("res://Assets/Plants/Plant1_Final.glb")
 
 #Plant 2
+var plant2_final_prefab=preload("res://Assets/Plants/Plant2/Plant2.glb")
 
 #Plant 3
+var plant3_final_prefab=preload("res://Assets/Plants/Plant3/Plant3.glb")
 
 onready var stage_parent:=$Current_Stage
 
@@ -37,18 +41,14 @@ func _ready():
 
 	
 func start_growth(seed_type:int):
-	seeds=seed_type
+	seeds=seed_type+1
 	grow_timer.start()
-	match seed_type:
-		0:
-			var s = seed1_prefab.instance()
-			seeds=1
-			stage_parent.add_child(s)
-			s.global_transform=global_transform
-			s.global_translate(Vector3(-.01, .33, -.025))
-			
-		_:
-			print("Seed not ready")
+
+	var s = seed1_prefab.instance()
+	stage_parent.add_child(s)
+	s.global_transform=global_transform
+	s.global_translate(Vector3(-.01, .33, -.025))
+
 
 func _on_WaterTimer_timeout():
 	if water!=0:
@@ -93,25 +93,31 @@ func _on_Area_body_exited(body):
 
 func _on_GrowthTimer_timeout():
 	grow_stage+=1
-	print("At stage ", grow_stage)
-	match seeds:
-		1:
-			match grow_stage:
-				1:
-					inst_plant(plant1_prefab, Vector3(0,1,0))
+	match grow_stage:
+			1:
+				inst_plant(stage1_prefab, Vector3(0,1,0))
 		
-				2:
-					inst_plant(plant1_stage2_prefab, Vector3(0,1.4,0))
+			2:
+				inst_plant(stage2_prefab, Vector3(0,1.4,0))
 					
-				3:
-					inst_plant(plant1_final_prefab, Vector3(0,1.4,0))
-					thirst_timer.stop()
-					grow_timer.stop()
+			3:
+				match seeds:
+					1:
+						inst_plant(plant1_final_prefab, Vector3(0,1.4,0))
+					2:
+						inst_plant(plant2_final_prefab, Vector3(0,1.4,0))
+					3:
+						inst_plant(plant3_final_prefab, Vector3(0,1.4,0))
+						
+				thirst_timer.stop()
+				grow_timer.stop()	
 
+		
 func inst_plant(prefab,trans):
-	stage_parent.get_child(0).queue_free()
-	var p = prefab.instance()
-	p.global_transform=global_transform
-	p.translate(trans)
-	stage_parent.add_child(p)
-	grow_timer.start()
+	if(stage_parent.get_child(0)!=null):
+		stage_parent.get_child(0).queue_free()
+		var p = prefab.instance()
+		p.global_transform=global_transform
+		p.translate(trans)
+		stage_parent.add_child(p)
+		grow_timer.start()

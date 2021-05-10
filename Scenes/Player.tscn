@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://Assets/Player/Material_001.material" type="Material" id=1]
 [ext_resource path="res://Assets/can2.png" type="Texture" id=2]
@@ -40,6 +40,8 @@
 [ext_resource path="res://Assets/Inventory/Plant2_Btn1.png" type="Texture" id=38]
 [ext_resource path="res://Assets/Inventory/Plant3_Btn3.png" type="Texture" id=39]
 [ext_resource path="res://Assets/Inventory/Plant1_Btn1.png" type="Texture" id=40]
+[ext_resource path="res://Assets/Can.glb" type="PackedScene" id=41]
+[ext_resource path="res://Assets/Material_003.material" type="Material" id=42]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.6767, 1, 0.733048 )
@@ -64,6 +66,11 @@ tracks/0/keys = {
 "values": [ Vector2( -254.373, 134.695 ), Vector2( -1, 134.695 ) ]
 }
 
+[sub_resource type="SpatialMaterial" id=8]
+albedo_color = Color( 0.411765, 0.411765, 0.411765, 1 )
+metallic = 0.6
+roughness = 0.55
+
 [sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rotation_degrees")
@@ -77,6 +84,32 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector3( 24.572, -180, -90 ), Vector3( 75.101, -180, -90 ), Vector3( 24.572, -180, -90 ) ]
 }
+
+[sub_resource type="Animation" id=7]
+resource_name = "pour"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 70, 7.3226e-06, 90 ), Vector3( 5, 2.51404e-06, 90 ), Vector3( 70, 7.3226e-06, 90 ) ]
+}
+
+[sub_resource type="ParticlesMaterial" id=5]
+direction = Vector3( 0, 0, 0 )
+spread = 37.6
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 30.0
+color = Color( 0, 0.133333, 1, 0.556863 )
+
+[sub_resource type="SphereMesh" id=6]
+radius = 0.025
+height = 0.05
 
 [node name="Player" type="KinematicBody" groups=[
 "Player",
@@ -127,7 +160,6 @@ __meta__ = {
 }
 
 [node name="Fill_Water" type="Control" parent="UI"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -571,9 +603,9 @@ __meta__ = {
 }
 
 [node name="Panel_Inv" type="Panel" parent="UI"]
-margin_left = -254.373
+margin_left = -1.0
 margin_top = 134.695
-margin_right = -4.37294
+margin_right = 249.0
 margin_bottom = 434.695
 script = ExtResource( 28 )
 __meta__ = {
@@ -654,8 +686,40 @@ __meta__ = {
 position = Vector2( 47.0001, 10.8847 )
 texture = ExtResource( 31 )
 
+[node name="AcceptDialog" type="AcceptDialog" parent="UI"]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -283.5
+margin_top = -156.5
+margin_right = 283.5
+margin_bottom = 156.5
+window_title = "How to Play"
+
+[node name="Label2" type="Label" parent="UI/AcceptDialog"]
+margin_left = 18.0
+margin_top = 39.0
+margin_right = 563.0
+margin_bottom = 207.0
+text = "Go to the shop and buy seeds
+Seeds need water and time to grow
+They don't like being near other plants, so space them out
+Plants need dark soil--unwatered soil is light
+Right click to use inventory items (Stand on top of plants to use them)
+Click to pick plants
+
+Controls: WASD to move, Q and E for looking side to side, scroll bar for up and down
+Space bar to jump"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Hoe" parent="." instance=ExtResource( 9 )]
 transform = Transform( 1.10367e-09, -0.15, 1.19259e-08, -0.136416, -5.96293e-09, -0.0623755, 0.0623755, -1.03869e-08, -0.136416, 0.363031, 0.287311, -0.219544 )
+material/0 = ExtResource( 42 )
+material/1 = SubResource( 8 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Hoe"]
 anims/Swing = SubResource( 4 )
@@ -671,6 +735,21 @@ page = 5.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Can" parent="." instance=ExtResource( 41 )]
+transform = Transform( -4.28246e-09, -0.1, 4.37114e-09, 0.034202, -5.57221e-09, -0.0939693, 0.0939693, -2.52918e-09, 0.034202, 0.353633, 0.2301, -0.381741 )
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Can"]
+anims/pour = SubResource( 7 )
+
+[node name="Particles" type="Particles" parent="Can"]
+transform = Transform( 1, 7.10543e-15, 2.98023e-08, -9.59233e-14, 0.999999, 5.32907e-15, -2.98023e-08, 3.9968e-14, 1, -2.02167, 1.43051e-06, -1.48326 )
+emitting = false
+amount = 30
+one_shot = true
+process_material = SubResource( 5 )
+draw_pass_1 = SubResource( 6 )
 [connection signal="pressed" from="UI/Shop/TabContainer/Buy/Btn_Seed1" to="." method="_on_Btn_Seed1_pressed"]
 [connection signal="pressed" from="UI/Shop/TabContainer/Buy/Btn_Seed2" to="." method="_on_Btn_Seed2_pressed"]
 [connection signal="pressed" from="UI/Shop/TabContainer/Buy/Btn_Seed3" to="." method="_on_Btn_Seed3_pressed"]

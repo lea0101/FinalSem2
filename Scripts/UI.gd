@@ -2,7 +2,7 @@ extends Control
 
 
 var inventory:=["Hoe","Can","Seed1","Seed2","Seed3"]
-var plants_val:=[5,10,30]
+var plants_val:=[5,15,30]
 
 export(Array) var items
 export(String) var equipped
@@ -21,15 +21,23 @@ onready var moneylbl:=$Lbl_Money
 onready var ctrl_water:=$Fill_Water
 onready var ctrl_shop:=$Shop
 onready var ctrl_inv:=$Panel_Inv
-
+onready var howto:=$AcceptDialog
 
 
 func _ready():
+	howto.popup()
 	fill_can(0)
 	equipped="Hoe"
-	add_money(100)
+	add_money(5)
 	ctrl_shop.hide()
 	ctrl_water.hide()
+	
+	var cnt =0
+	for btn in ctrl_shop.get_child(0).get_child(0).get_children():
+		if "Lbl" in btn.name:
+			continue
+		btn.get_child(0).text= "$" +str(seedsprices[cnt])
+		cnt+=1
 
 
 func _process(delta):
@@ -76,19 +84,19 @@ func add_money(change:int):
 
 
 func _on_Btn_Plant1_pressed():
-	if(get_parent().plants_cnt[0]>0):
-		add_money(5)
-		get_parent().plants_cnt[0]-=1
-
+	sell_crop(0)
 
 func _on_Btn_Plant2_pressed():
-	add_money(10)
+	sell_crop(1)
+	
 
 func _on_Btn_Plant3_pressed():
-	add_money(30)
+	sell_crop(2)
+	
 	
 func sell_crop(index:int):
 	if(get_parent().plants_cnt[index]>0):
 		add_money(plants_val[index])
 		get_parent().plants_cnt[index]-=1
 		ctrl_inv.update_cnt()
+	

@@ -19,6 +19,8 @@ var jump_power:=7
 #Onready
 onready var ui:=$UI
 onready var hoe_anim:=$Hoe/AnimationPlayer
+onready var can_anim:=$Can/AnimationPlayer
+onready var can_particles:=$Can/Particles
 
 #Prefabs
 var tilled_prefab=preload("res://Scenes/Plant.tscn")
@@ -29,7 +31,7 @@ onready var scroll_x:=$Scroll_ViewX
 
 #The items...
 onready var hoe:=$Hoe
-
+onready var can:=$Can
 
 #Interaction with plots
 export(Resource) var current_plant
@@ -38,8 +40,9 @@ export(Resource) var current_plant
 func _ready():
 	print("Rotation:", rotation_degrees.x)
 	ui.items.append(hoe)
+	ui.items.append(can)
 	current_plant=null
-	scroll_x.value=10
+	scroll_x.value=50
 
 
 func _physics_process(delta):
@@ -83,7 +86,7 @@ func get_input():
 					var plant=tilled_prefab.instance()
 					plant.rotation_degrees=Vector3.ZERO
 					plant.global_transform=global_transform
-					plant.translation.y-=1.6
+					plant.translation.y-=1.25
 					plant.translation.z-=.5
 					get_parent().add_child(plant)
 
@@ -91,12 +94,21 @@ func get_input():
 				if on_farm and ui.can_capacity!=0 and current_plant!=null:
 					ui.fill_can(ui.can_capacity-20)
 					current_plant.get_watered()
+					can_anim.play("pour")
+					can_particles.emitting=true
 
 			"Seed1":
 				if on_farm and current_plant!=null and seeds_cnt[0]!=0:
 					current_plant.start_growth(0)
 					use_seed(0)
-					
+			"Seed2":
+				if on_farm and current_plant!=null and seeds_cnt[1]!=0:
+					current_plant.start_growth(1)
+					use_seed(1)
+			"Seed3":
+				if on_farm and current_plant!=null and seeds_cnt[2]!=0:
+					current_plant.start_growth(2)
+					use_seed(2)	
 			_:
 				print("Not ready")
 
